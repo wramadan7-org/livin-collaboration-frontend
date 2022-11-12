@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@fontsource/poppins';
+import { useDispatch, useSelector } from 'react-redux';
 import { Image } from 'react-bootstrap';
 import LoginImage from '../assets/images/LoginImage.png';
 import NavbarLoginRegister from '../components/NavbarLoginRegister';
+import loginAction from '../reduxs/actions/authAction';
 
 export default function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const detailState = useSelector((state) => state.authReducer);
+
+  console.log('detail', detailState);
+
+  const dispatch = useDispatch();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log(username);
+    console.log(password);
+    const actionLogin = dispatch(loginAction.login({ username, password }));
+
+    console.log('STATUS', actionLogin.payload);
+  };
+
   return (
     <div className="flex flex-1 flex-col w-max" style={{ background: '#1F2E35', width: '100%', paddingBottom: '150px' }}>
       <div className="flex flex-col top-0 left-0 right-0 bg-[#1F2E35]">
@@ -63,23 +83,35 @@ export default function LoginPage() {
                   </div>
 
                   <div>
-                    <form className="px-8 pt-6 pb-8 mb-4">
+                    <form className="px-8 pt-6 pb-8 mb-4" onSubmit={handleLogin}>
                       <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                           Username
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+                        <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Username"
+                          onChange={(e) => setUsername(e.target.value)}
+                        />
                         {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
                       </div>
                       <div className="mb-6">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                           Password
                         </label>
-                        <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
+                        <input
+                          className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                          id="password"
+                          type="password"
+                          placeholder="******************"
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
                         {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
                       </div>
                       <div className="flex items-center justify-between">
-                        <button className="bg-[#02897A] hover:bg-[#178073] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        <button className="bg-[#02897A] hover:bg-[#178073] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                           Login
                         </button>
                         <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
