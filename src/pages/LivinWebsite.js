@@ -24,7 +24,6 @@ export default function LivinWebsite() {
   };
 
   useEffect(() => {
-    console.log('parent scroll', window.scrollY);
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controllNavbar);
 

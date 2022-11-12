@@ -16,8 +16,7 @@ export default function NavbarDefault({ prevScrollPos, isShow }) {
   };
 
   useEffect(() => {
-    console.log('scroll', prevScrollPos);
-    console.log('show or hide', isShow);
+
   }, [isLogin, prevScrollPos]);
 
   return (
