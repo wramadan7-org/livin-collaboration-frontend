@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export default (action, state = initialState) => {
-  switch (action.type) {
+  switch (action) {
     case 'AUTH_LOGIN_USER_PENDING': {
       return {
         ...state,
